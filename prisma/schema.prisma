@@ -6,3 +6,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Categoria {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  eventos Evento[]
+}
+
+model Evento {
+  id           Int        @id @default(autoincrement())
+  titulo       String
+  descricao    String
+  endereco     String
+  dataInicio   DateTime?
+  dataTermino  DateTime?
+  ticketType   TicketType @default(INGRESSO)
+  imagemUrl    String?
+  categoriaId  Int
+  categoria    Categoria  @relation(fields: [categoriaId], references: [id])
+}
+
+enum TicketType {
+  INGRESSO
+  VIP
+  GRATUITO
+}
