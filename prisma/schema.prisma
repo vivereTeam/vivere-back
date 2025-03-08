@@ -55,7 +55,7 @@ model Carrinho {
   itens      CarrinhoItem[]
 }
 
-// Modelo auxiliar para itens do carrinho
+
 model CarrinhoItem {
   id         Int      @id @default(autoincrement())
   carrinho   Carrinho @relation(fields: [carrinhoId], references: [id])
