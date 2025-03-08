@@ -7,27 +7,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Categoria {
-  id      Int      @id @default(autoincrement())
-  nome    String
-  eventos Evento[]
-}
 
-model Evento {
-  id           Int        @id @default(autoincrement())
-  titulo       String
-  descricao    String
-  endereco     String
-  dataInicio   DateTime?
-  dataTermino  DateTime?
-  ticketType   TicketType @default(INGRESSO)
-  imagemUrl    String?
-  categoriaId  Int
-  categoria    Categoria  @relation(fields: [categoriaId], references: [id])
+enum CategoriaEnum {
+  SHOWS_ENTRETENIMENTO
+  WORKSHOPS_AULAS
+  VIAGENS_TURISMO
+  AVENTURA_ADRENALINA
+  RELAXAMENTO_BEM_ESTAR
+  GASTRONOMIA_DEGUSTACOES
+  INFANTIL_FAMILIAR
+  EXPERIENCIAS_PERSONALIZADAS
 }
 
 enum TicketType {
   INGRESSO
   VIP
   GRATUITO
+}
+
+model Evento {
+  id           Int           @id @default(autoincrement())
+  titulo       String
+  descricao    String
+  endereco     String
+  dataInicio   DateTime?     
+  dataTermino  DateTime?
+  ticketType   TicketType    @default(INGRESSO)
+  imagemUrl    String?       @default("https://exemplo.com/placeholder.jpg")
+  preco        Float?        @default(0) 
+  categoria    CategoriaEnum 
+   carrinhoItems CarrinhoItem[]
+}
+
+
+model Usuario {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  senha    String
+  nome     String?
+  carrinho Carrinho?
+}
+
+model Carrinho {
+  id         Int       @id @default(autoincrement())
+  usuario    Usuario   @relation(fields: [usuarioId], references: [id])
+  usuarioId  Int       @unique 
+  itens      CarrinhoItem[]
+}
+
+// Modelo auxiliar para itens do carrinho
+model CarrinhoItem {
+  id         Int      @id @default(autoincrement())
+  carrinho   Carrinho @relation(fields: [carrinhoId], references: [id])
+  carrinhoId Int
+  evento     Evento   @relation(fields: [eventoId], references: [id])
+  eventoId   Int
+  quantidade Int      @default(1)
 }
