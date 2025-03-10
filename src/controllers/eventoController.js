@@ -116,10 +116,25 @@ const deleteEvento = async (req, res) => {
   }
 };
 
+// Get Event by Category
+const getEventosByCategory = async (req, res) => {
+  const { id_categoria } = req.params;
+  try {
+    const eventos = await prisma.evento.findMany({
+      where: { categoria: id_categoria },
+    });
+    return res.status(200).json(eventos);
+  } catch (error) {
+    console.error('Erro ao buscar eventos por categoria:', error);
+    return res.status(500).json({ error: 'Erro ao buscar eventos por categoria' });
+  }
+};
+
 module.exports = {
   getAllEventos,
   getEventoById,
   createEvento,
   updateEvento,
   deleteEvento,
+  getEventosByCategory,
 };
