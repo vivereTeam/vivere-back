@@ -7,7 +7,8 @@ const {
   createEvento,
   updateEvento,
   deleteEvento,
-  getEventosByCategory
+  getEventosByCategory,
+  populateDB,
 } = require('../controllers/eventoController');
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.post('/', createEvento);
 router.put('/:id', updateEvento);
 router.delete('/:id', deleteEvento);
 router.get('/categoria/:id_categoria', getEventosByCategory);
+router.get('/populate', populateDB);
 
 module.exports = router;
