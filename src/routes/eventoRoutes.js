@@ -12,13 +12,9 @@ const {
 const router = express.Router();
 
 router.get('/', getAllEventos);
-
 router.get('/:id', getEventoById);
-
 router.post('/', createEvento);
-
 router.put('/:id', updateEvento);
-
 router.delete('/:id', deleteEvento);
 
 module.exports = router;
