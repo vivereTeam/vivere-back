@@ -19,6 +19,6 @@ router.post('/', createEvento);
 router.put('/:id', updateEvento);
 router.delete('/:id', deleteEvento);
 router.get('/categoria/:id_categoria', getEventosByCategory);
-router.get('/populate', populateDB);
+router.post('/populate', populateDB);
 
 module.exports = router;
