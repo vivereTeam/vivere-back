@@ -1,4 +1,5 @@
 // server.js
+module.exports = { app, server };
 const express = require('express');
 const cors = require('cors');
 const eventoRoutes = require('./routes/eventoRoutes');
