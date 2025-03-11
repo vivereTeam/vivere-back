@@ -109,7 +109,7 @@ const deleteEvento = async (req, res) => {
     await prisma.evento.delete({
       where: { id: Number(id) },
     });
-    return res.status(200).json({ message: 'Evento deletado com sucesso' });
+    return res.status(200).json({ id: Number(id) });
   } catch (error) {
     console.error('Erro ao deletar evento:', error);
     return res.status(500).json({ error: 'Erro ao deletar evento' });
