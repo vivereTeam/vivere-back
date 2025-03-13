@@ -2,8 +2,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// User Routes
-// User login
 const userLogin = async (req, res) => {
     const { email, senha } = req.body;
     try {
@@ -20,7 +18,6 @@ const userLogin = async (req, res) => {
     }
   };
   
-// User register
 const userRegister = async (req, res) => {
     const { email, senha, nome } = req.body;
     try {
