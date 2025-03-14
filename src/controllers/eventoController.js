@@ -5,14 +5,12 @@ const getAllEventos = async (req, res) => {
   try {
     const eventos = await prisma.evento.findMany();
     return res.status(200).json(eventos);
-  } catch (error) {
-    console.error('Erro ao buscar eventos:', error);
-    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+  } catch(error) {
+    console.error("Erro ao buscar eventos:", error);
+    return res.status(500).json({error: 'Erro ao buscar eventos'});
   }
-};
+}
 
-
-// Get event
 const getEventoById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -122,6 +120,29 @@ const getEventosByCategory = async (req, res) => {
     return res.status(500).json({ error: 'Erro ao buscar eventos por categoria' });
   }
 };
+
+const searchEventos = async(req, resp) => {
+  try {
+    const { q } = req.query;
+
+    if (!q) {
+      return res.status(400).json({error: "Termo de busca não informado"});
+    }
+    const eventos = await prisma.evento.findMany({
+      where: {
+        OR: [
+          { nome: { contains: q, mode: 'insensitive'} },
+          { descricao: {contains: q, mode: 'insensitive'} }
+        ]
+      }
+    });
+  
+    return res.status(200).json(eventos);
+  } catch(error) {
+    console.error("Erro ao buscar eventos:", error);
+    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+  }
+}
 
 const populateDB = async (req, res) => {
   try {
@@ -367,5 +388,6 @@ module.exports = {
   updateEvento,
   deleteEvento,
   getEventosByCategory,
+  searchEventos,
   populateDB,
 };

@@ -6,6 +6,7 @@ const {
   updateEvento,
   deleteEvento,
   getEventosByCategory,
+  searchEventos,
   populateDB,
 } = require('../controllers/eventoController');
 
