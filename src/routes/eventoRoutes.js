@@ -216,5 +216,6 @@ router.get('/categoria/:id_categoria', getEventosByCategory);
  *         description: Banco de dados populado com sucesso
  */
 router.post('/populate', populateDB);
+router.get('/search', searchEventos);
 
 module.exports = router;
