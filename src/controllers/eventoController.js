@@ -1,9 +1,6 @@
-// eventoController.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Event Routes
-// Get all events
 const getAllEventos = async (req, res) => {
   try {
     const eventos = await prisma.evento.findMany();
@@ -32,7 +29,6 @@ const getEventoById = async (req, res) => {
   }
 };
 
-// Create event
 const createEvento = async (req, res) => {
   const {
     titulo,
@@ -66,7 +62,6 @@ const createEvento = async (req, res) => {
   }
 };
 
-// Update event
 const updateEvento = async (req, res) => {
   const { id } = req.params;
   const {
@@ -102,7 +97,6 @@ const updateEvento = async (req, res) => {
   }
 };
 
-// Delete event
 const deleteEvento = async (req, res) => {
   const { id } = req.params;
   try {
@@ -116,7 +110,6 @@ const deleteEvento = async (req, res) => {
   }
 };
 
-// Get Event by Category
 const getEventosByCategory = async (req, res) => {
   const { id_categoria } = req.params;
   try {
@@ -130,7 +123,6 @@ const getEventosByCategory = async (req, res) => {
   }
 };
 
-// Populate Data Base
 const populateDB = async (req, res) => {
   try {
     const eventos = [
