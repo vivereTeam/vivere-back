@@ -37,6 +37,17 @@ const userRegister = async (req, res) => {
     }
   };
 
+  async function hashPassword(plainPassword) {
+    const saltRounds = 12;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(plainPassword, salt);
+    return hashedPassword;
+  }
+
+  async function comparePassword(plainPassword, hashedPassword) {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
 const createOwner = async (req, res) => {
   const { email, senha, nome } = req.body;
   try  {
