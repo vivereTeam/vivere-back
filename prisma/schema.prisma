@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum CategoriaEnum {
   SHOWS_ENTRETENIMENTO
   WORKSHOPS_AULAS
@@ -36,9 +35,8 @@ model Evento {
   imagemUrl    String?       @default("https://exemplo.com/placeholder.jpg")
   preco        Float?        @default(0) 
   categoria    CategoriaEnum 
-   carrinhoItems CarrinhoItem[]
+  carrinhoItems CarrinhoItem[]
 }
-
 
 model Usuario {
   id       Int      @id @default(autoincrement())
@@ -54,7 +52,6 @@ model Carrinho {
   usuarioId  Int       @unique 
   itens      CarrinhoItem[]
 }
-
 
 model CarrinhoItem {
   id         Int      @id @default(autoincrement())
