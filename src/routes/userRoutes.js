@@ -1,7 +1,9 @@
 const express = require('express');
+
 const { 
     userLogin, 
     userRegister,
+    createAdmin,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -99,5 +101,5 @@ router.post('/login', userLogin);
  *         description: Dados inválidos ou erro na criação do usuário
  */
 router.post('/register', userRegister);
-
+router.post('/admin', createAdmin);
 module.exports = router;
