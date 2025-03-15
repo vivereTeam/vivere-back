@@ -48,34 +48,32 @@ const userRegister = async (req, res) => {
     return await bcrypt.compare(plainPassword, hashedPassword);
   }
 
-const createOwner = async (req, res) => {
-  const { email, senha, nome } = req.body;
-  try  {
-    const existingOwner = await prisma.usuario.findFirst({
-      where: { role: 'OWNER' }
-    });
-
-    if(existingOwner) {
-      return res.status(400).json({ error: "já existe um owner cadastrado" });
-  }
-
-    const newOwner = await prisma.usuario.create({
-      data: {
-        email,
-        senha,
-        nome,
-        role: 'OWNER'
-      }
-    });
-
-    return res.status(200).json(newOwner)
-  } catch(error) {
-    return res.status(500).json({ error: "Erro ao criar owner" });
-  }
-};
+  const createAdmin = async (req, res) => {
+    const { email, senha, nome, secretKey } = req.body;
+    
+    if (secretKey !== process.env.OWNER_SECRET_KEY) {
+      return res.status(403).json({ error: "ACESSO NEGADO" });
+    }
+  
+    try {
+      const hashedPassword = await hashPassword(senha);
+      const newAdmin = await prisma.usuario.create({
+        data: {
+          email,
+          senha: hashedPassword,
+          nome,
+          role: 'ADMIN'
+        }
+      });
+      return res.status(201).json(newAdmin);
+    } catch (error) {
+      console.error("Erro ao criar admin:", error);
+      return res.status(500).json({ error: "Erro ao criar admin", details: error.message });
+    }
+  };
 
 module.exports = {
   userLogin,
   userRegister,
-  createOwner
+  createAdmin
 };
