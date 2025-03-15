@@ -38,11 +38,17 @@ model Evento {
   carrinhoItems CarrinhoItem[]
 }
 
+enum Role {
+  OWNER
+  ADMIN
+  USER
+}
+
 model Usuario {
   id       Int      @id @default(autoincrement())
   email    String   @unique
   senha    String
-  nome     String?
+  role     Role     @default(USER)
   carrinho Carrinho?
 }
 

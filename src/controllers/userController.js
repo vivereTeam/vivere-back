@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
 const userLogin = async (req, res) => {
@@ -36,7 +37,34 @@ const userRegister = async (req, res) => {
     }
   };
 
+const createOwner = async (req, res) => {
+  const { email, senha, nome } = req.body;
+  try  {
+    const existingOwner = await prisma.usuario.findFirst({
+      where: { role: 'OWNER' }
+    });
+
+    if(existingOwner) {
+      return res.status(400).json({ error: "já existe um owner cadastrado" });
+  }
+
+    const newOwner = await prisma.usuario.create({
+      data: {
+        email,
+        senha,
+        nome,
+        role: 'OWNER'
+      }
+    });
+
+    return res.status(200).json(newOwner)
+  } catch(error) {
+    return res.status(500).json({ error: "Erro ao criar owner" });
+  }
+};
+
 module.exports = {
   userLogin,
   userRegister,
+  createOwner
 };
