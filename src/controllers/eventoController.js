@@ -38,6 +38,7 @@ const createEvento = async (req, res) => {
     imagemUrl,
     preco,
     categoria,
+    cardSize,
   } = req.body;
   try {
     const novoEvento = await prisma.evento.create({
@@ -51,6 +52,7 @@ const createEvento = async (req, res) => {
         imagemUrl,
         preco: Number(preco),
         categoria,
+        cardSize,
       },
     });
     return res.status(201).json(novoEvento);
