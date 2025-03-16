@@ -24,6 +24,11 @@ enum TicketType {
   GRATUITO
 }
 
+enum CardSize {
+  NORMAL
+  LARGE
+}
+
 model Evento {
   id           Int           @id @default(autoincrement())
   titulo       String
@@ -34,7 +39,8 @@ model Evento {
   ticketType   TicketType    @default(INGRESSO)
   imagemUrl    String?       @default("https://exemplo.com/placeholder.jpg")
   preco        Float?        @default(0) 
-  categoria    CategoriaEnum 
+  categoria    CategoriaEnum
+  cardSize     CardSize      @default(NORMAL)
   carrinhoItems CarrinhoItem[]
 }
 
