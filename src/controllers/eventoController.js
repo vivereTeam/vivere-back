@@ -1,21 +1,16 @@
-// eventoController.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Event Routes
-// Get all events
 const getAllEventos = async (req, res) => {
   try {
     const eventos = await prisma.evento.findMany();
     return res.status(200).json(eventos);
-  } catch (error) {
-    console.error('Erro ao buscar eventos:', error);
-    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+  } catch(error) {
+    console.error("Erro ao buscar eventos:", error);
+    return res.status(500).json({error: 'Erro ao buscar eventos'});
   }
-};
+}
 
-
-// Get event
 const getEventoById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -32,7 +27,6 @@ const getEventoById = async (req, res) => {
   }
 };
 
-// Create event
 const createEvento = async (req, res) => {
   const {
     titulo,
@@ -44,6 +38,7 @@ const createEvento = async (req, res) => {
     imagemUrl,
     preco,
     categoria,
+    cardSize,
   } = req.body;
   try {
     const novoEvento = await prisma.evento.create({
@@ -57,6 +52,7 @@ const createEvento = async (req, res) => {
         imagemUrl,
         preco: Number(preco),
         categoria,
+        cardSize,
       },
     });
     return res.status(201).json(novoEvento);
@@ -66,7 +62,6 @@ const createEvento = async (req, res) => {
   }
 };
 
-// Update event
 const updateEvento = async (req, res) => {
   const { id } = req.params;
   const {
@@ -102,7 +97,6 @@ const updateEvento = async (req, res) => {
   }
 };
 
-// Delete event
 const deleteEvento = async (req, res) => {
   const { id } = req.params;
   try {
@@ -116,7 +110,6 @@ const deleteEvento = async (req, res) => {
   }
 };
 
-// Get Event by Category
 const getEventosByCategory = async (req, res) => {
   const { id_categoria } = req.params;
   try {
@@ -130,7 +123,29 @@ const getEventosByCategory = async (req, res) => {
   }
 };
 
-// Populate Data Base
+const searchEventos = async(req, resp) => {
+  try {
+    const { q } = req.query;
+
+    if (!q) {
+      return res.status(400).json({error: "Termo de busca não informado"});
+    }
+    const eventos = await prisma.evento.findMany({
+      where: {
+        OR: [
+          { nome: { contains: q, mode: 'insensitive'} },
+          { descricao: {contains: q, mode: 'insensitive'} }
+        ]
+      }
+    });
+  
+    return res.status(200).json(eventos);
+  } catch(error) {
+    console.error("Erro ao buscar eventos:", error);
+    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+  }
+}
+
 const populateDB = async (req, res) => {
   try {
     const eventos = [
@@ -144,6 +159,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/show-rock.jpg',
         preco: 150.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Festival de Jazz',
@@ -155,6 +171,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/jazz-festival.jpg',
         preco: 200.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Noite de Sertanejo',
@@ -166,6 +183,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/sertanejo-night.jpg',
         preco: 0.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Festival EDM',
@@ -177,6 +195,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/edm-festival.jpg',
         preco: 300.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Concerto de Orquestra',
@@ -188,8 +207,8 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/orquestra.jpg',
         preco: 250.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'NORMAL',
       },
-
       {
         titulo: 'Passeio de Quadriciclo',
         descricao: 'Aventura off-road em trilhas emocionantes.',
@@ -200,6 +219,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/quadriciclo.jpg',
         preco: 120.0,
         categoria: 'AVENTURA_ADRENALINA',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Salto de Paraquedas',
@@ -211,6 +231,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/paraquedas.jpg',
         preco: 500.0,
         categoria: 'AVENTURA_ADRENALINA',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Rafting no Rio',
@@ -222,6 +243,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/rafting.jpg',
         preco: 180.0,
         categoria: 'AVENTURA_ADRENALINA',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Tirolesa na Montanha',
@@ -233,6 +255,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/tirolesa.jpg',
         preco: 90.0,
         categoria: 'AVENTURA_ADRENALINA',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Escalada em Rocha',
@@ -244,8 +267,8 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/escalada.jpg',
         preco: 220.0,
         categoria: 'AVENTURA_ADRENALINA',
+        cardSize: 'NORMAL',
       },
-
       {
         titulo: 'Jantar Gourmet',
         descricao: 'Um jantar sofisticado com pratos exclusivos.',
@@ -256,6 +279,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/jantar-gourmet.jpg',
         preco: 350.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Degustação de Vinhos',
@@ -267,6 +291,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/degustacao-vinhos.jpg',
         preco: 150.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Workshop de Chocolates',
@@ -278,6 +303,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/workshop-chocolates.jpg',
         preco: 100.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Feira de Comidas Típicas',
@@ -289,6 +315,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/feira-comidas.jpg',
         preco: 0.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Curso de Cozinha Molecular',
@@ -300,8 +327,8 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/cozinha-molecular.jpg',
         preco: 280.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
+        cardSize: 'NORMAL',
       },
-
       {
         titulo: 'Parque de Diversões',
         descricao: 'Diversão para toda a família com brinquedos incríveis.',
@@ -312,6 +339,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/parque-diversoes.jpg',
         preco: 80.0,
         categoria: 'INFANTIL_FAMILIAR',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Teatro Infantil',
@@ -323,6 +351,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/teatro-infantil.jpg',
         preco: 50.0,
         categoria: 'INFANTIL_FAMILIAR',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Festa de Natal',
@@ -334,6 +363,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/festa-natal.jpg',
         preco: 0.0,
         categoria: 'INFANTIL_FAMILIAR',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Cinema ao Ar Livre',
@@ -345,6 +375,7 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/cinema-ao-ar-livre.jpg',
         preco: 0.0,
         categoria: 'INFANTIL_FAMILIAR',
+        cardSize: 'NORMAL',
       },
       {
         titulo: 'Oficina de Pintura para Crianças',
@@ -356,6 +387,31 @@ const populateDB = async (req, res) => {
         imagemUrl: 'https://exemplo.com/oficina-pintura.jpg',
         preco: 30.0,
         categoria: 'INFANTIL_FAMILIAR',
+        cardSize: 'NORMAL',
+      },
+      {
+        titulo: 'Festival de Cinema Internacional',
+        descricao: 'Uma semana de filmes premiados de todo o mundo.',
+        endereco: 'Avenida do Cinema, 1818',
+        dataInicio: new Date('2023-12-27T10:00:00Z'),
+        dataTermino: new Date('2023-12-31T22:00:00Z'),
+        ticketType: 'INGRESSO',
+        imagemUrl: 'https://exemplo.com/festival-cinema.jpg',
+        preco: 100.0,
+        categoria: 'SHOWS_ENTRETENIMENTO',
+        cardSize: 'LARGE',
+      },
+      {
+        titulo: 'Feira de Tecnologia e Inovação',
+        descricao: 'Descubra as últimas tendências em tecnologia.',
+        endereco: 'Centro de Convenções, 1919',
+        dataInicio: new Date('2023-12-28T09:00:00Z'),
+        dataTermino: new Date('2023-12-30T18:00:00Z'),
+        ticketType: 'VIP',
+        imagemUrl: 'https://exemplo.com/feira-tecnologia.jpg',
+        preco: 200.0,
+        categoria: 'WORKSHOPS_AULAS',
+        cardSize: 'LARGE',
       },
     ];
     await prisma.evento.createMany({
@@ -375,5 +431,6 @@ module.exports = {
   updateEvento,
   deleteEvento,
   getEventosByCategory,
+  searchEventos,
   populateDB,
 };

@@ -1,9 +1,7 @@
-// authController.js
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
-// User Routes
-// User login
 const userLogin = async (req, res) => {
     const { email, senha } = req.body;
     try {
@@ -20,7 +18,6 @@ const userLogin = async (req, res) => {
     }
   };
   
-// User register
 const userRegister = async (req, res) => {
     const { email, senha, nome } = req.body;
     try {
@@ -40,7 +37,43 @@ const userRegister = async (req, res) => {
     }
   };
 
+  async function hashPassword(plainPassword) {
+    const saltRounds = 12;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(plainPassword, salt);
+    return hashedPassword;
+  }
+
+  async function comparePassword(plainPassword, hashedPassword) {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
+  const createAdmin = async (req, res) => {
+    const { email, senha, nome, secretKey } = req.body;
+    
+    if (secretKey !== process.env.OWNER_SECRET_KEY) {
+      return res.status(403).json({ error: "ACESSO NEGADO" });
+    }
+  
+    try {
+      const hashedPassword = await hashPassword(senha);
+      const newAdmin = await prisma.usuario.create({
+        data: {
+          email,
+          senha: hashedPassword,
+          nome,
+          role: 'ADMIN'
+        }
+      });
+      return res.status(201).json(newAdmin);
+    } catch (error) {
+      console.error("Erro ao criar admin:", error);
+      return res.status(500).json({ error: "Erro ao criar admin", details: error.message });
+    }
+  };
+
 module.exports = {
   userLogin,
   userRegister,
+  createAdmin
 };
