@@ -130,19 +130,20 @@ const searchEventos = async (req, res) => {
     if (!q) {
       return res.status(400).json({ error: "Termo de busca não informado" });
     }
+
     const eventos = await prisma.evento.findMany({
       where: {
         OR: [
-          { titulo: { contains: q, mode: 'insensitive' } },
-          { descricao: { contains: q, mode: 'insensitive' } }
-        ]
-      }
+          { titulo: { contains: q, mode: "insensitive" } },
+          { descricao: { contains: q, mode: "insensitive" } },
+        ],
+      },
     });
-  
+
     return res.status(200).json(eventos);
   } catch (error) {
     console.error("Erro ao buscar eventos:", error);
-    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+    return res.status(500).json({ error: "Erro ao buscar eventos" });
   }
 };
 

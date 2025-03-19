@@ -7,7 +7,7 @@ const {
 } = require('../controllers/userController');
 
 const router = express.Router();
-const checkRole = require('../middleware/checkRole')
+const checkRole = require('../middleware/checkRole');
 
 /**
  * @swagger
