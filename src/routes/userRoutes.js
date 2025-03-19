@@ -7,6 +7,7 @@ const {
 } = require('../controllers/userController');
 
 const router = express.Router();
+const checkRole = require('../middleware/checkRole')
 
 /**
  * @swagger
@@ -101,5 +102,6 @@ router.post('/login', userLogin);
  *         description: Dados inválidos ou erro na criação do usuário
  */
 router.post('/register', userRegister);
-router.post('/admin', createAdmin);
+router.post('/admin', checkRole('OWNER'), createAdmin);
+
 module.exports = router;

@@ -7,16 +7,10 @@ require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET;
 
-/**
- * userRegister:
- *  - Recebe email, senha, nome e cria um novo usuário no banco
- *  - Armazena a senha com hash (bcrypt)
- */
 const userRegister = async (req, res) => {
   try {
     const { email, password, nome } = req.body;
 
-    // Verificar se já existe usuário com esse email
     const existingUser = await prisma.usuario.findUnique({
       where: { email },
     });
@@ -24,16 +18,14 @@ const userRegister = async (req, res) => {
       return res.status(400).json({ error: 'Usuário já existe' });
     }
 
-    // Fazer hash da senha
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Criar usuário no banco
     const newUser = await prisma.usuario.create({
       data: {
         email,
-        senha: hashedPassword, // salva hash em vez da senha
+        senha: hashedPassword, 
         nome,
-        role: 'USER', // se quiser default como USER
+        role: 'USER', 
       },
     });
 
@@ -52,18 +44,10 @@ const userRegister = async (req, res) => {
   }
 };
 
-/**
- * userLogin:
- *  - Recebe email e password
- *  - Verifica o usuário no banco
- *  - Compara o hash com bcrypt.compare
- *  - Gera token JWT se credenciais estiverem certas
- */
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Buscar usuário pelo email
     const user = await prisma.usuario.findUnique({
       where: { email },
     });
@@ -72,13 +56,11 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Verificar senha
     const validPassword = await bcrypt.compare(password, user.senha);
     if (!validPassword) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    // Gerar token JWT
     const token = jwt.sign(
       {
         userId: user.id,
@@ -87,7 +69,7 @@ const userLogin = async (req, res) => {
         email: user.email
       },
       SECRET,
-      { expiresIn: '1h' } // expira em 1 dia, por exemplo
+      { expiresIn: '1h' }
     );
 
     return res.status(200).json({
@@ -106,11 +88,6 @@ const userLogin = async (req, res) => {
   }
 };
 
-/**
- * createAdmin:
- *  - Exemplo de rota para criar usuário com role ADMIN
- *  - Se quiser restringir, proteja com middleware e checar se role é OWNER ou algo do tipo
- */
 const createAdmin = async (req, res) => {
   try {
     const { email, password, nome } = req.body;

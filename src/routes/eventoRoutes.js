@@ -12,6 +12,7 @@ const {
 } = require('../controllers/eventoController');
 
 const verifyToken = require('../middleware/authMiddleware');
+const checkRole = require('../middleware/checkRole')
 
 /**
  * @swagger

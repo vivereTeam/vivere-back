@@ -1,4 +1,3 @@
-// src/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -22,9 +21,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    // Decodifica e verifica o token
     const decoded = jwt.verify(token, SECRET);
-    // Salva info do usuário no req para uso futuro
     req.userId = decoded.userId;
     req.userRole = decoded.role;
 
