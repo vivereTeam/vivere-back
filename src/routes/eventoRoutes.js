@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const {
   getAllEventos,
   getEventoById,
@@ -10,7 +11,7 @@ const {
   populateDB,
 } = require('../controllers/eventoController');
 
-const router = express.Router();
+const verifyToken = require('../middleware/authMiddleware');
 
 /**
  * @swagger
@@ -71,7 +72,7 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Evento'
  */
-router.get('/', getAllEventos);
+router.get('/', verifyToken, getAllEventos);
 
 /**
  * @swagger
@@ -96,7 +97,7 @@ router.get('/', getAllEventos);
  *       404:
  *         description: Evento não encontrado
  */
-router.get('/:id', getEventoById);
+router.get('/:id', verifyToken, getEventoById);
 
 /**
  * @swagger
@@ -121,7 +122,7 @@ router.get('/:id', getEventoById);
  *       400:
  *         description: Dados inválidos ou erro na criação do evento
  */
-router.post('/', createEvento);
+router.post('/', verifyToken, createEvento);
 
 /**
  * @swagger
@@ -155,7 +156,7 @@ router.post('/', createEvento);
  *       404:
  *         description: Evento não encontrado
  */
-router.put('/:id', updateEvento);
+router.put('/:id', verifyToken, updateEvento);
 
 /**
  * @swagger
@@ -176,7 +177,7 @@ router.put('/:id', updateEvento);
  *       404:
  *         description: Evento não encontrado
  */
-router.delete('/:id', deleteEvento);
+router.delete('/:id', verifyToken, deleteEvento);
 
 /**
  * @swagger
@@ -203,7 +204,7 @@ router.delete('/:id', deleteEvento);
  *       404:
  *         description: Categoria não encontrada
  */
-router.get('/categoria/:id_categoria', getEventosByCategory);
+router.get('/categoria/:id_categoria', verifyToken, getEventosByCategory);
 
 /**
  * @swagger
@@ -215,7 +216,7 @@ router.get('/categoria/:id_categoria', getEventosByCategory);
  *       201:
  *         description: Banco de dados populado com sucesso
  */
-router.post('/populate', populateDB);
+router.post('/populate', verifyToken, populateDB);
 
 /**
  * @swagger
@@ -244,6 +245,6 @@ router.post('/populate', populateDB);
  *       500:
  *         description: Erro interno
  */
-router.get('/search', searchEventos);
+router.get('/search', verifyToken, searchEventos);
 
 module.exports = router;
