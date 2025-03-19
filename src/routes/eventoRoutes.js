@@ -73,7 +73,36 @@ const checkRole = require('../middleware/checkRole')
  *               items:
  *                 $ref: '#/components/schemas/Evento'
  */
-router.get('/', verifyToken, getAllEventos);
+router.get('/', getAllEventos);
+
+/**
+ * @swagger
+ * /eventos/search:
+ *   get:
+ *     summary: Retorna eventos que correspondem ao termo de pesquisa
+ *     tags: [Eventos]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         description: Termo de busca para filtrar eventos por nome ou descrição
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de eventos que correspondem à pesquisa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Evento'
+ *       400:
+ *         description: Termo de busca não informado
+ *       500:
+ *         description: Erro interno
+ */
+router.get('/search', searchEventos);
 
 /**
  * @swagger
@@ -218,34 +247,5 @@ router.get('/categoria/:id_categoria', verifyToken, getEventosByCategory);
  *         description: Banco de dados populado com sucesso
  */
 router.post('/populate', verifyToken, populateDB);
-
-/**
- * @swagger
- * /eventos/search:
- *   get:
- *     summary: Retorna eventos que correspondem ao termo de pesquisa
- *     tags: [Eventos]
- *     parameters:
- *       - in: query
- *         name: q
- *         description: Termo de busca para filtrar eventos por nome ou descrição
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Lista de eventos que correspondem à pesquisa
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Evento'
- *       400:
- *         description: Termo de busca não informado
- *       500:
- *         description: Erro interno
- */
-router.get('/search', verifyToken, searchEventos);
 
 module.exports = router;

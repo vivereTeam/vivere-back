@@ -123,28 +123,29 @@ const getEventosByCategory = async (req, res) => {
   }
 };
 
-const searchEventos = async(req, resp) => {
+const searchEventos = async (req, res) => {
   try {
     const { q } = req.query;
 
     if (!q) {
-      return res.status(400).json({error: "Termo de busca não informado"});
+      return res.status(400).json({ error: "Termo de busca não informado" });
     }
+
     const eventos = await prisma.evento.findMany({
       where: {
         OR: [
-          { nome: { contains: q, mode: 'insensitive'} },
-          { descricao: {contains: q, mode: 'insensitive'} }
-        ]
-      }
+          { titulo: { contains: q, mode: "insensitive" } },
+          { descricao: { contains: q, mode: "insensitive" } },
+        ],
+      },
     });
-  
+
     return res.status(200).json(eventos);
-  } catch(error) {
+  } catch (error) {
     console.error("Erro ao buscar eventos:", error);
-    return res.status(500).json({ error: 'Erro ao buscar eventos' });
+    return res.status(500).json({ error: "Erro ao buscar eventos" });
   }
-}
+};
 
 const populateDB = async (req, res) => {
   try {
