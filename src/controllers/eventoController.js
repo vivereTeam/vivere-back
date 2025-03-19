@@ -5,11 +5,11 @@ const getAllEventos = async (req, res) => {
   try {
     const eventos = await prisma.evento.findMany();
     return res.status(200).json(eventos);
-  } catch(error) {
+  } catch (error) {
     console.error("Erro ao buscar eventos:", error);
-    return res.status(500).json({error: 'Erro ao buscar eventos'});
+    return res.status(500).json({ error: 'Erro ao buscar eventos' });
   }
-}
+};
 
 const getEventoById = async (req, res) => {
   const { id } = req.params;
@@ -157,7 +157,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-01T19:00:00Z'),
         dataTermino: new Date('2023-12-01T23:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/show-rock.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 150.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'NORMAL',
@@ -169,7 +169,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-10T18:00:00Z'),
         dataTermino: new Date('2023-12-10T22:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/jazz-festival.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 200.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'NORMAL',
@@ -181,7 +181,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-15T20:00:00Z'),
         dataTermino: new Date('2023-12-15T23:30:00Z'),
         ticketType: 'GRATUITO',
-        imagemUrl: 'https://exemplo.com/sertanejo-night.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 0.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'NORMAL',
@@ -193,7 +193,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-20T22:00:00Z'),
         dataTermino: new Date('2023-12-21T05:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/edm-festival.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 300.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'NORMAL',
@@ -205,7 +205,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-25T20:00:00Z'),
         dataTermino: new Date('2023-12-25T22:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/orquestra.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 250.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'NORMAL',
@@ -217,7 +217,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-02T09:00:00Z'),
         dataTermino: new Date('2023-12-02T12:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/quadriciclo.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 120.0,
         categoria: 'AVENTURA_ADRENALINA',
         cardSize: 'NORMAL',
@@ -229,7 +229,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-07T10:00:00Z'),
         dataTermino: new Date('2023-12-07T15:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/paraquedas.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 500.0,
         categoria: 'AVENTURA_ADRENALINA',
         cardSize: 'NORMAL',
@@ -241,7 +241,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-12T08:00:00Z'),
         dataTermino: new Date('2023-12-12T12:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/rafting.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 180.0,
         categoria: 'AVENTURA_ADRENALINA',
         cardSize: 'NORMAL',
@@ -253,7 +253,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-17T09:00:00Z'),
         dataTermino: new Date('2023-12-17T13:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/tirolesa.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 90.0,
         categoria: 'AVENTURA_ADRENALINA',
         cardSize: 'NORMAL',
@@ -265,7 +265,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-22T10:00:00Z'),
         dataTermino: new Date('2023-12-22T16:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/escalada.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 220.0,
         categoria: 'AVENTURA_ADRENALINA',
         cardSize: 'NORMAL',
@@ -277,7 +277,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-03T19:00:00Z'),
         dataTermino: new Date('2023-12-03T22:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/jantar-gourmet.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 350.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
         cardSize: 'NORMAL',
@@ -289,7 +289,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-08T18:00:00Z'),
         dataTermino: new Date('2023-12-08T21:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/degustacao-vinhos.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 150.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
         cardSize: 'NORMAL',
@@ -301,7 +301,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-13T14:00:00Z'),
         dataTermino: new Date('2023-12-13T17:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/workshop-chocolates.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 100.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
         cardSize: 'NORMAL',
@@ -313,7 +313,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-18T12:00:00Z'),
         dataTermino: new Date('2023-12-18T18:00:00Z'),
         ticketType: 'GRATUITO',
-        imagemUrl: 'https://exemplo.com/feira-comidas.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 0.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
         cardSize: 'NORMAL',
@@ -325,7 +325,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-23T10:00:00Z'),
         dataTermino: new Date('2023-12-23T14:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/cozinha-molecular.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 280.0,
         categoria: 'GASTRONOMIA_DEGUSTACOES',
         cardSize: 'NORMAL',
@@ -337,7 +337,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-04T10:00:00Z'),
         dataTermino: new Date('2023-12-04T18:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/parque-diversoes.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 80.0,
         categoria: 'INFANTIL_FAMILIAR',
         cardSize: 'NORMAL',
@@ -349,7 +349,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-09T15:00:00Z'),
         dataTermino: new Date('2023-12-09T17:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/teatro-infantil.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 50.0,
         categoria: 'INFANTIL_FAMILIAR',
         cardSize: 'NORMAL',
@@ -361,7 +361,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-16T14:00:00Z'),
         dataTermino: new Date('2023-12-16T20:00:00Z'),
         ticketType: 'GRATUITO',
-        imagemUrl: 'https://exemplo.com/festa-natal.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 0.0,
         categoria: 'INFANTIL_FAMILIAR',
         cardSize: 'NORMAL',
@@ -373,7 +373,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-21T18:00:00Z'),
         dataTermino: new Date('2023-12-21T20:00:00Z'),
         ticketType: 'GRATUITO',
-        imagemUrl: 'https://exemplo.com/cinema-ao-ar-livre.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 0.0,
         categoria: 'INFANTIL_FAMILIAR',
         cardSize: 'NORMAL',
@@ -385,7 +385,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-26T10:00:00Z'),
         dataTermino: new Date('2023-12-26T12:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/oficina-pintura.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 30.0,
         categoria: 'INFANTIL_FAMILIAR',
         cardSize: 'NORMAL',
@@ -397,7 +397,7 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-27T10:00:00Z'),
         dataTermino: new Date('2023-12-31T22:00:00Z'),
         ticketType: 'INGRESSO',
-        imagemUrl: 'https://exemplo.com/festival-cinema.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 100.0,
         categoria: 'SHOWS_ENTRETENIMENTO',
         cardSize: 'LARGE',
@@ -409,15 +409,17 @@ const populateDB = async (req, res) => {
         dataInicio: new Date('2023-12-28T09:00:00Z'),
         dataTermino: new Date('2023-12-30T18:00:00Z'),
         ticketType: 'VIP',
-        imagemUrl: 'https://exemplo.com/feira-tecnologia.jpg',
+        imagemUrl: 'https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg',
         preco: 200.0,
         categoria: 'WORKSHOPS_AULAS',
         cardSize: 'LARGE',
       },
     ];
+
     await prisma.evento.createMany({
       data: eventos,
     });
+
     return res.status(200).json({ message: 'Banco populado com sucesso' });
   } catch (error) {
     console.error('Erro ao popular banco:', error);

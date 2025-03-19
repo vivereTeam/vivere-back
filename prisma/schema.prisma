@@ -34,10 +34,10 @@ model Evento {
   titulo       String
   descricao    String
   endereco     String
-  dataInicio   DateTime?     
+  dataInicio   DateTime?
   dataTermino  DateTime?
   ticketType   TicketType    @default(INGRESSO)
-  imagemUrl    String?       @default("https://exemplo.com/placeholder.jpg")
+  imagemUrl    String?       @default("https://abetterchance.org/wp-content/uploads/2022/05/Placeholder-Landscape.jpg")
   preco        Float?        @default(0) 
   categoria    CategoriaEnum
   cardSize     CardSize      @default(NORMAL)

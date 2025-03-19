@@ -1,9 +1,12 @@
+// Carrega as variáveis de ambiente do arquivo .env
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const eventoRoutes = require('./routes/eventoRoutes');
 const userRoutes = require('./routes/userRoutes');
-const swaggerUi = require('swagger-ui-express')
-const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 const app = express();
 
@@ -17,7 +20,7 @@ const swaggerOptions = {
     },
   },
   apis: ['./src/routes/*.js', './src/controllers/*.js'],
-}
+};
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
