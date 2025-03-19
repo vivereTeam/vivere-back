@@ -123,7 +123,7 @@ router.get('/:id', verifyToken, getEventoById);
  *       400:
  *         description: Dados inválidos ou erro na criação do evento
  */
-router.post('/', verifyToken, createEvento);
+router.post('/', verifyToken, checkRole('ADMIN'), createEvento);
 
 /**
  * @swagger
@@ -157,7 +157,7 @@ router.post('/', verifyToken, createEvento);
  *       404:
  *         description: Evento não encontrado
  */
-router.put('/:id', verifyToken, updateEvento);
+router.put('/:id', verifyToken, checkRole('ADMIN'), updateEvento);
 
 /**
  * @swagger
@@ -178,7 +178,7 @@ router.put('/:id', verifyToken, updateEvento);
  *       404:
  *         description: Evento não encontrado
  */
-router.delete('/:id', verifyToken, deleteEvento);
+router.delete('/:id', verifyToken, checkRole('ADMIN'), deleteEvento);
 
 /**
  * @swagger
