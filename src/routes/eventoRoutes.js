@@ -234,7 +234,7 @@ router.delete('/:id', verifyToken, checkRole('ADMIN'), deleteEvento);
  *       404:
  *         description: Categoria não encontrada
  */
-router.get('/categoria/:id_categoria', verifyToken, getEventosByCategory);
+router.get('/categoria/:id_categoria', getEventosByCategory);
 
 /**
  * @swagger
