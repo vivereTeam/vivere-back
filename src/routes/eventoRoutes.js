@@ -127,7 +127,7 @@ router.get('/search', searchEventos);
  *       404:
  *         description: Evento não encontrado
  */
-router.get('/:id', verifyToken, getEventoById);
+router.get('/:id', getEventoById);
 
 /**
  * @swagger
