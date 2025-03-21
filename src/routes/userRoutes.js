@@ -1,9 +1,8 @@
 const express = require('express');
-
-const { 
-    userLogin, 
-    userRegister,
-    createAdmin,
+const {
+  userLogin,
+  userRegister,
+  createAdmin,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -43,7 +42,7 @@ const checkRole = require('../middleware/checkRole');
 
 /**
  * @swagger
- * /users/login:
+ * /usuario/login:
  *   post:
  *     summary: Realiza o login do usuário
  *     tags: [Users]
@@ -80,7 +79,7 @@ router.post('/login', userLogin);
 
 /**
  * @swagger
- * /users/register:
+ * /usuario/register:
  *   post:
  *     summary: Registra um novo usuário
  *     tags: [Users]
@@ -102,6 +101,38 @@ router.post('/login', userLogin);
  *         description: Dados inválidos ou erro na criação do usuário
  */
 router.post('/register', userRegister);
+
+/**
+ * @swagger
+ * /usuario/admin:
+ *   post:
+ *     summary: Cria um novo administrador (somente para usuário OWNER)
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       description: Email e senha do novo administrador
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             example:
+ *               email: "admin@example.com"
+ *               password: "admin123"
+ *     responses:
+ *       201:
+ *         description: Admin criado com sucesso
+ *       403:
+ *         description: Acesso negado (apenas OWNER pode criar ADMIN)
+ *       400:
+ *         description: Erro ao criar administrador
+ */
 router.post('/admin', checkRole('OWNER'), createAdmin);
 
 module.exports = router;
