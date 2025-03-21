@@ -1,8 +1,8 @@
-// Carrega as variáveis de ambiente do arquivo .env
 require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const eventoRoutes = require('./routes/eventoRoutes');
 const userRoutes = require('./routes/userRoutes');
 const swaggerUi = require('swagger-ui-express');
@@ -26,6 +26,8 @@ const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/eventos', eventoRoutes);
