@@ -125,8 +125,37 @@ const createAdmin = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    const user = await prisma.usuario.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await prisma.usuario.update({
+      where: { email },
+      data: { senha: hashedPassword },
+    });
+
+    return res.status(200).json({ 
+      message: 'Senha redefinida com sucesso' 
+    });
+  } catch (error) {
+    console.error('Erro ao redefinir senha:', error);
+    return res.status(500).json({ error: 'Erro ao redefinir senha' });
+  }
+};
+
 module.exports = {
   userLogin,
   userRegister,
   createAdmin,
+  resetPassword,
 };
