@@ -3,6 +3,7 @@ const {
   userLogin,
   userRegister,
   createAdmin,
+  resetPassword,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -134,5 +135,36 @@ router.post('/register', userRegister);
  *         description: Erro ao criar administrador
  */
 router.post('/admin', checkRole('OWNER'), createAdmin);
+
+/**
+ * @swagger
+ * /usuario/reset-password:
+ *   post:
+ *     summary: Redefine a senha do usuário
+ *     tags: [Users]
+ *     requestBody:
+ *       description: Email e nova senha
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *             example:
+ *               email: "usuario@example.com"
+ *               newPassword: "novaSenha123"
+ *     responses:
+ *       200:
+ *         description: Senha redefinida com sucesso
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro ao redefinir senha
+ */
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
