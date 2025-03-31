@@ -56,7 +56,7 @@ model Usuario {
   senha    String
   nome     String
   role     Role     @default(USER)
-  carrinho Carrinho
+  carrinho Carrinho?
 }
 
 model Carrinho {

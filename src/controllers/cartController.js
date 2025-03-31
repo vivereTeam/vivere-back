@@ -2,24 +2,27 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getCart = async (req, res) => {
-  try {
-    const { usuarioId } = req.params;
-    
-    const cart = await prisma.carrinho.findUnique({
-      where: { usuarioId: Number(usuarioId) },
-      include: { itens: { include: { evento: true } } }
-    });
-
-    if (!cart) {
-      return res.status(200).json({ itens: [] });
+    try {
+      const { usuarioId } = req.params;
+      
+      let cart = await prisma.carrinho.findUnique({
+        where: { usuarioId: Number(usuarioId) },
+        include: { itens: { include: { evento: true } } }
+      });
+  
+      if (!cart) {
+        cart = await prisma.carrinho.create({
+          data: { usuarioId: Number(usuarioId) },
+          include: { itens: { include: { evento: true } } }
+        });
+      }
+  
+      return res.status(200).json(cart);
+    } catch (error) {
+      console.error('Erro ao buscar carrinho:', error);
+      return res.status(500).json({ error: 'Erro ao buscar carrinho' });
     }
-
-    return res.status(200).json(cart);
-  } catch (error) {
-    console.error('Erro ao buscar carrinho:', error);
-    return res.status(500).json({ error: 'Erro ao buscar carrinho' });
-  }
-};
+  };
 
 const addItem = async (req, res) => {
   try {
