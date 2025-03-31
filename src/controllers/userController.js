@@ -23,9 +23,10 @@ const userRegister = async (req, res) => {
     const newUser = await prisma.usuario.create({
       data: {
         email,
-        senha: hashedPassword, 
+        senha: hashedPassword,
         nome,
-        role: 'USER', 
+        role: 'USER',
+        carrinho: { create: {} }
       },
     });
 
@@ -50,6 +51,7 @@ const userLogin = async (req, res) => {
 
     const user = await prisma.usuario.findUnique({
       where: { email },
+      include: { carrinho: true }
     });
 
     if (!user) {
@@ -107,6 +109,7 @@ const createAdmin = async (req, res) => {
         senha: hashedPassword,
         nome,
         role: 'ADMIN',
+        carrinho: { create: {} }
       },
     });
 
