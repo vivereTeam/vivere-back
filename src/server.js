@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const eventoRoutes = require('./routes/eventoRoutes');
 const userRoutes = require('./routes/userRoutes');
-const cartRoutes = require('./routes/cartRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
@@ -33,7 +32,6 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/eventos', eventoRoutes);
 app.use('/usuario', userRoutes);
-app.use('/carrinho', cartRoutes);
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
