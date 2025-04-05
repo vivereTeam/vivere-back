@@ -150,7 +150,7 @@ const searchEventos = async (req, res) => {
     const { q } = req.query;
 
     if (!q) {
-      return res.status(400).json({ error: "Termo de busca não informado" });
+      return res.status(400).json({ error: "Termo de busca não fornecido" });
     }
 
     const eventos = await prisma.evento.findMany({
