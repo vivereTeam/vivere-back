@@ -1,129 +1,170 @@
-
-# 🌟 Vivere Back-End
+# 🚀 Vivere Backend API
 
 ## 📖 Descrição
 
-O **Vivere Back-End** é a parte servidor de uma plataforma inovadora de e-commerce focada na criação, gestão e compartilhamento de experiências únicas, indo além da simples venda de ingressos para eventos.
+API do sistema Vivere, responsável pela gestão de usuários, eventos e carrinhos de compra. Desenvolvida com Node.js e Prisma para integração com PostgreSQL.
 
 ---
 
-## 🚀 Funcionalidades Principais
+## 🛠️ Tecnologias Principais
 
-### 📌 Gestão de Experiências
-- **Criação e administração** de experiências personalizadas para usuários.
-
-### 💳 Integração com Pagamentos
-- **Processamento seguro** e eficiente de transações financeiras.
-
-### 🔐 Autenticação e Autorização
-- **Gerenciamento de usuários** com diferentes níveis de acesso e segurança.
-
-### 🌐 API RESTful
-- **Endpoints robustos** para interação eficiente com front-end e outros serviços.
+- **Node.js** (v18+) - Ambiente de execução JavaScript
+- **Express** - Framework web para API RESTful
+- **Prisma** - ORM para PostgreSQL
+- **JWT** - Autenticação segura
+- **Swagger** - Documentação de API
+- **Docker** - Containerização do serviço
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🖥️ Repositório do Front-End
 
-- **Node.js** 🚦 Ambiente de execução para JavaScript.
-- **Express.js** 🌉 Framework web para APIs robustas.
-- **Prisma** 📚 ORM moderno para banco de dados.
-- **Swagger** 📃 Documentação e testes da API.
+A interface do usuário do projeto está disponível em:  
+🔗 [vivereTeam/vivere-front](https://github.com/vivereTeam/vivere-front)
 
 ---
 
 ## 📂 Estrutura do Projeto
 
 ```plaintext
-📁 vivere-back
-├── 📂 prisma
-│   └── schema.prisma
-└── 📂 src
-    ├── 📂 controllers
-    ├── 📂 models
-    ├── 📂 routes
-    ├── 📂 services
-    └── 📂 utils
+vivereteam-vivere-back/
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/ (6 migrações)
+├── src/
+│   ├── controllers/ (cart, evento, user)
+│   ├── middleware/ (auth, roles)
+│   ├── routes/ (cart, evento, user)
+│   ├── server.js
+│   └── server.test.js
+├── docker-compose.yml
+├── Dockerfile
+└── swagger-output.json
 ```
 
 ---
 
 ## 🔧 Instalação e Configuração
 
-### 📌 Requisitos Prévios
+Siga os passos abaixo para rodar o projeto localmente ou com Docker.
+
+### **Requisitos Prévios**
 - Node.js (v16 ou superior)
-- npm
-
-### 📌 Passos para Instalação
-
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/vivereTeam/vivere-back.git
-   cd vivere-back
-   ```
-
-2. **Instale as dependências**
-   ```bash
-   npm install
-   ```
-
-3. **Configure as variáveis de ambiente**
-   ```env
-   DATABASE_URL="url_do_banco_de_dados"
-   PORT=3000
-   JWT_SECRET="sua_chave_secreta"
-   ```
-
-4. **Execute migrações do banco de dados**
-   ```bash
-   npx prisma migrate dev
-   ```
+- Docker e Docker Compose (opcional)
+- PostgreSQL (somente para execução local, caso não use Docker)
 
 ---
 
-## ▶️ Uso
+## 💻 Executar com Docker (Recomendado)
 
-Inicie o servidor em modo de desenvolvimento:
+### 1. Configure o arquivo `.env`
+
+Crie um arquivo `.env` na raiz do projeto com:
+
+```env
+DATABASE_URL=postgresql://postgres:postgres@db:5432/mydatabase
+JWT_SECRET=sua_chave_jwt_segura
+```
+
+### 2. Inicie o projeto com Docker
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## 🛠️ Executar Localmente
+
+### 1. Clone o Repositório
+
+```bash
+git clone https://github.com/vivereTeam/vivere-back
+cd vivere-back
+```
+
+### 2. Instale as Dependências
+
+```bash
+npm install
+```
+
+### 3. Configure o Arquivo `.env`
+
+Crie um arquivo `.env` com as seguintes variáveis:
+
+```env
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/nome_do_banco
+JWT_SECRET=sua_chave_jwt_segura
+```
+
+> **Atenção:**  
+> - Você precisa ter o **PostgreSQL instalado e rodando localmente**, ou usar um banco externo.  
+> - Use as credenciais do seu ambiente (usuário, senha, host, nome do banco etc).
+
+### 4. Execute as Migrações
+
+```bash
+npx prisma migrate dev
+```
+
+### 5. Inicie o Projeto
 
 ```bash
 npm run dev
 ```
 
-Acesse o projeto em:
+---
 
-```
-http://localhost:3000
-```
+## 📚 Documentação da API
+
+- Swagger disponível em: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ---
 
-## 📑 Documentação da API
+## 🤝 Contribuição
 
-A documentação da API pode ser acessada via Swagger:
-
-```
-http://localhost:3000/api-docs
-```
-
----
-
-## 🤝 Como Contribuir
-
-1. Faça um **fork** do repositório
-2. Crie uma branch (`git checkout -b feature/NovaFuncionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona NovaFuncionalidade'`)
-4. Push para sua branch (`git push origin feature/NovaFuncionalidade`)
-5. Abra um **Pull Request**
+1. Crie uma branch:
+   ```bash
+   git checkout -b feature/NomeDaFeature
+   ```
+2. Faça o commit:
+   ```bash
+   git commit -m 'feat: adiciona NomeDaFeature'
+   ```
+3. Envie a branch:
+   ```bash
+   git push origin feature/NomeDaFeature
+   ```
+4. Abra um Pull Request com uma descrição clara
 
 ---
 
 ## 📜 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais informações.
+MIT License – Consulte o arquivo `LICENSE`.
 
 ---
 
-## 📩 Contato
+## 👥 Colaboradores
 
-Visite o repositório no GitHub: [vivereTeam/vivere-back](https://github.com/vivereTeam/vivere-back)
-
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/J0aoPaulo">
+          <img src="https://avatars.githubusercontent.com/u/98539735?v=4" width="100;" alt="J0aoPaulo"/>
+          <br />
+          <sub><b>João Paulo Almeida</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/DavidEricson00">
+          <img src="https://avatars.githubusercontent.com/u/169815129?v=4" width="100;" alt="DavidEricson00"/>
+          <br />
+          <sub><b>David Ericson</b></sub>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
