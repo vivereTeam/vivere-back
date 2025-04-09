@@ -27,20 +27,31 @@ A interface do usuário do projeto está disponível em:
 ## 📂 Estrutura do Projeto
 
 ```plaintext
-vivereteam-vivere-back/
-├── prisma/
-│   ├── schema.prisma
-│   └── migrations/ (6 migrações)
-├── src/
-│   ├── controllers/ (cart, evento, user)
-│   ├── middleware/ (auth, roles)
-│   ├── routes/ (cart, evento, user)
-│   ├── server.js
-│   └── server.test.js
-├── docker-compose.yml
-├── Dockerfile
-└── swagger-output.json
+└── vivereteam-vivere-back/
+    ├── README.md
+    ├── docker-compose.yml
+    ├── Dockerfile
+    ├── package.json
+    ├── swagger-output.json
+    ├── .dockerignore
+    ├── prisma/
+    └── src/
+        ├── server.js
+        ├── server.test.js
+        ├── controllers/
+        │   ├── cartController.js
+        │   ├── eventoController.js
+        │   └── userController.js
+        ├── middleware/
+        │   ├── authMiddleware.js
+        │   └── checkRole.js
+        └── routes/
+            ├── cartRoutes.js
+            ├── eventoRoutes.js
+            └── userRoutes.js
 ```
+
+
 
 ---
 
